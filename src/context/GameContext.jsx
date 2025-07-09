@@ -21,7 +21,11 @@ export function GameProvider({ children }) {
   };
 
   const stopGame = () => {
-    setHighScore((prevHigh) => (score > prevHigh ? score : prevHigh));
+    setHighScore((prevHigh) => {
+      const newHigh = score > prevHigh ? score : prevHigh;
+      console.log("High score updated:", newHigh);
+      return newHigh;
+    });
     setIsPlaying(false);
   };
 
