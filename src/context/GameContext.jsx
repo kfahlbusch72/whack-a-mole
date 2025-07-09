@@ -12,8 +12,6 @@ export function GameProvider({ children }) {
   const [highScore, setHighScore] = useState(0);
 
   const startGame = () => {
-    console.log("Starting game...");
-
     setScore(0);
     setMoleIndex(Math.floor(Math.random() * 9));
     setTimeLeft(15);
@@ -21,11 +19,7 @@ export function GameProvider({ children }) {
   };
 
   const stopGame = () => {
-    setHighScore((prevHigh) => {
-      const newHigh = score > prevHigh ? score : prevHigh;
-      console.log("High score updated:", newHigh);
-      return newHigh;
-    });
+    setHighScore((prevHigh) => (score > prevHigh ? score : prevHigh));
     setIsPlaying(false);
   };
 
