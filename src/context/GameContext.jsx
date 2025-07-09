@@ -19,7 +19,13 @@ export function GameProvider({ children }) {
 
   const whackMole = () => {
     setScore((score) => score + 1);
-    setMoleIndex(Math.floor(Math.random() * 9));
+    setMoleIndex((prev) => {
+      let next;
+      do {
+        next = Math.floor(Math.random() * 9);
+      } while (next === prev);
+      return next;
+    });
   };
 
   return (
