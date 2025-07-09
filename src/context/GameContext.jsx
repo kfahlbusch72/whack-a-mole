@@ -8,17 +8,25 @@ export function GameProvider({ children }) {
   const [moleIndex, setMoleIndex] = useState(Math.floor(Math.random() * 9));
 
   const startGame = () => {
+    console.log("Starting game...");
+
     setScore(0);
     setMoleIndex(Math.floor(Math.random() * 9));
     setIsPlaying(true);
   };
 
+  const [highScore, setHighScore] = useState(0);
+
   const stopGame = () => {
+    setHighScore((prevHigh) => (score > prevHigh ? score : prevHigh));
     setIsPlaying(false);
   };
 
   const whackMole = () => {
+    if (timeLeft <= 0) return;
+
     setScore((score) => score + 1);
+
     setMoleIndex((prev) => {
       let next;
       do {
@@ -28,11 +36,30 @@ export function GameProvider({ children }) {
     });
   };
 
+  useEffect(() => {
+    if (isPlaying) {
+      timerRef.current = setInterval(() => {
+        setTimeLeft((time) => {
+          if (time <= 1) {
+            clearInterval(timerRef.current);
+            setIsPlaying(false);
+            return 0;
+          }
+          return time - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(timerRef.current);
+  }, [isPlaying]);
+
   return (
     <GameContext.Provider
       value={{
         isPlaying,
         score,
+        highScore,
+        timeLeft,
         moleIndex,
         startGame,
         stopGame,

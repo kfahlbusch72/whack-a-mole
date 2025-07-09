@@ -1,9 +1,44 @@
-
 .hole {
-  background: url("/hole.png") no-repeat center/contain;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background-image: url("/hole.png");
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
 }
 
-.mole {
-  background-image: url("/mole.png");
+.hole.has-mole {
+  background-image: url("/hole.png"), url("/mole.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center center, center top;
+  background-size: cover, 80px auto;
 }
 
+.holes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreboard {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}

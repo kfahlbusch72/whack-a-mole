@@ -10,12 +10,12 @@ export default function GameBoard() {
   return (
     <div className="game-board">
       <ScoreBoard />
-
+      <div>Time Left: {timeLeft} seconds</div>
       <button onClick={stopGame}>Restart</button>
 
       <div className="holes">
-        {Array.from({ length: 9 }).map((_, idx) => (
-          <Hole key={idx} hasMole={index === moleIndex} index={idx} />
+        {Array.from({ length: 9 }).map((_, index) => (
+          <Hole key={index} hasMole={index === moleIndex} index={index} />
         ))}
       </div>
     </div>
