@@ -9,7 +9,7 @@ export function GameProvider({ children }) {
   const [timeLeft, setTimeLeft] = useState(15);
   const timerRef = useRef();
 
-  const [highScore, setHighScore] = useState();
+  const [highScore, setHighScore] = useState(0);
 
   const startGame = () => {
     setScore(0);
@@ -18,8 +18,8 @@ export function GameProvider({ children }) {
     setIsPlaying(true);
   };
 
-  const stopGame = () => {
-    setHighScore((prevHigh) => (score > prevHigh ? score : prevHigh));
+  const stopGame = (finalScore) => {
+    setHighScore((prevHigh) => (score > prevHigh ? finalScore : prevHigh));
     setIsPlaying(false);
   };
 
@@ -41,7 +41,7 @@ export function GameProvider({ children }) {
         setTimeLeft((time) => {
           if (time <= 1) {
             clearInterval(timerRef.current);
-            stopGame();
+            stopGame(score);
             return 0;
           }
           return time - 1;
@@ -50,7 +50,7 @@ export function GameProvider({ children }) {
     }
 
     return () => clearInterval(timerRef.current);
-  }, [isPlaying]);
+  }, [isPlaying, score]);
 
   return (
     <GameContext.Provider

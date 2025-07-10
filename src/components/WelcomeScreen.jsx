@@ -2,6 +2,7 @@ import { useGame } from "../context/GameContext";
 
 export default function WelcomeScreen() {
   const { startGame, highScore } = useGame();
+  console.log(highScore);
 
   return (
     <div className="welcome-screen">
