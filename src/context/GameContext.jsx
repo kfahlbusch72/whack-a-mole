@@ -9,7 +9,7 @@ export function GameProvider({ children }) {
   const [timeLeft, setTimeLeft] = useState(15);
   const timerRef = useRef();
 
-  const [highScore, setHighScore] = useState(0);
+  const [highScore, setHighScore] = useState();
 
   const startGame = () => {
     setScore(0);
